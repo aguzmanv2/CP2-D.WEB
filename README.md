@@ -1,4 +1,4 @@
-# Sistema Medico de Turnos
+# Sistema de Gestion de Citas Medicas
 
 Sistema web full stack para gestion de citas medicas, turnos, reportes y comunicacion en tiempo real.
 
