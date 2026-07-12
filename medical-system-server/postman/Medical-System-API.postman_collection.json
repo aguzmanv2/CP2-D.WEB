@@ -1,0 +1,458 @@
+{
+  "info": {
+    "name": "Medical System API",
+    "_postman_id": "c9b3a5a6-1643-45f1-8b3d-2de8e3f5d001",
+    "description": "Coleccion completa para autenticar y probar los CRUD del sistema, turnos y reportes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cedula\": \"1-1111-1111\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Perez\",\n  \"correo\": \"juan.perez@example.com\",\n  \"password\": \"Password123\",\n  \"rol\": \"Paciente\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register" }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identificador\": \"juan.perez@example.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login" }
+          }
+        },
+        {
+          "name": "Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/profile" }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/logout" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Lookup By Cedula",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/users/lookup?cedula=" }
+          }
+        },
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/users?page=1&limit=10&search=&rol=&estado=" }
+          }
+        },
+        {
+          "name": "Update User Role",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rol\": \"Medico\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/users/{{userId}}/role" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Patients",
+      "item": [
+        {
+          "name": "List Patients",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/patients?page=1&limit=10&search=&estado=" }
+          }
+        },
+        {
+          "name": "Get Patient",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/patients/{{patientId}}" }
+          }
+        },
+        {
+          "name": "Create Patient",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cedula\": \"1-1111-1111\",\n  \"nombre\": \"Maria\",\n  \"apellido\": \"Lopez\",\n  \"correo\": \"maria.lopez@example.com\",\n  \"telefono\": \"8888-1111\",\n  \"direccion\": \"San Jose\",\n  \"fechaNacimiento\": \"1990-05-10\",\n  \"estado\": \"Activo\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/patients" }
+          }
+        },
+        {
+          "name": "Update Patient",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Maria\",\n  \"apellido\": \"Lopez\",\n  \"estado\": \"Inactivo\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/patients/{{patientId}}" }
+          }
+        },
+        {
+          "name": "Delete Patient",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/patients/{{patientId}}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Doctors",
+      "item": [
+        {
+          "name": "List Doctors",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors?page=1&limit=10&search=&estado=&especialidad=" }
+          }
+        },
+        {
+          "name": "Get Doctor",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors/{{doctorId}}" }
+          }
+        },
+        {
+          "name": "Create Doctor",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellido\": \"Mendez\",\n  \"especialidad\": \"{{specialtyId}}\",\n  \"consultorio\": \"A-102\",\n  \"tiempoPromedioConsulta\": 20,\n  \"estado\": \"Activo\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/doctors" }
+          }
+        },
+        {
+          "name": "Update Doctor",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consultorio\": \"A-205\",\n  \"estado\": \"De licencia\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/doctors/{{doctorId}}" }
+          }
+        },
+        {
+          "name": "Delete Doctor",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors/{{doctorId}}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Specialties",
+      "item": [
+        {
+          "name": "List Specialties",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/specialties?page=1&limit=10&search=&estado=" }
+          }
+        },
+        {
+          "name": "Get Specialty",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/specialties/{{specialtyId}}" }
+          }
+        },
+        {
+          "name": "Create Specialty",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Cardiologia\",\n  \"descripcion\": \"Atencion y diagnostico del sistema cardiovascular\",\n  \"estado\": \"Activo\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/specialties" }
+          }
+        },
+        {
+          "name": "Update Specialty",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Actualizada desde Postman\",\n  \"estado\": \"Inactivo\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/specialties/{{specialtyId}}" }
+          }
+        },
+        {
+          "name": "Delete Specialty",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/specialties/{{specialtyId}}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointments",
+      "item": [
+        {
+          "name": "List Appointments",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/appointments?page=1&limit=10&search=&estado=&fecha=&paciente=&medico=&especialidad=" }
+          }
+        },
+        {
+          "name": "Get Appointment",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/appointments/{{appointmentId}}" }
+          }
+        },
+        {
+          "name": "Create Appointment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paciente\": \"{{patientId}}\",\n  \"medico\": \"{{doctorId}}\",\n  \"especialidad\": \"{{specialtyId}}\",\n  \"fecha\": \"2026-07-20T00:00:00.000Z\",\n  \"hora\": \"09:30\",\n  \"estado\": \"Pendiente\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/appointments" }
+          }
+        },
+        {
+          "name": "Update Appointment",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estado\": \"Confirmada\",\n  \"hora\": \"10:00\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/appointments/{{appointmentId}}" }
+          }
+        },
+        {
+          "name": "Delete Appointment",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/appointments/{{appointmentId}}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Turnos",
+      "item": [
+        {
+          "name": "Register Arrival",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cita\": \"{{appointmentId}}\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/turnos/registrar-llegada" }
+          }
+        },
+        {
+          "name": "Queue",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/turnos/cola?medico={{doctorId}}&fecha=" }
+          }
+        },
+        {
+          "name": "Current Turn",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/turnos/actual?medico={{doctorId}}&fecha=" }
+          }
+        },
+        {
+          "name": "Next Turn",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/turnos/siguiente?medico={{doctorId}}&fecha=" }
+          }
+        },
+        {
+          "name": "Patient Turn",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/turnos/paciente?paciente={{patientId}}&fecha=" }
+          }
+        },
+        {
+          "name": "History",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/turnos/historial?medico={{doctorId}}&paciente={{patientId}}&estado=&fecha=&page=1&limit=10" }
+          }
+        },
+        {
+          "name": "Start Attention",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"turnoId\": \"{{turnId}}\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/turnos/atender" }
+          }
+        },
+        {
+          "name": "Finish Attention",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"turnoId\": \"{{turnId}}\",\n  \"motivo\": \"Control de seguimiento\",\n  \"notas\": \"Consulta cerrada desde Postman\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/turnos/finalizar" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Dashboard Report",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/reports/dashboard?fechaInicio=&fechaFin=&especialidad=&medico=&search=&page=1&limit=10&sortBy=horaLlegada&sortOrder=desc"
+            }
+          }
+        },
+        {
+          "name": "Table Report",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/reports/table?fechaInicio=&fechaFin=&especialidad=&medico=&search=&page=1&limit=10&sortBy=horaLlegada&sortOrder=desc"
+            }
+          }
+        },
+        {
+          "name": "Export CSV",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/reports/export/csv?fechaInicio=&fechaFin=&especialidad=&medico=&search=&sortBy=horaLlegada&sortOrder=desc"
+            }
+          }
+        },
+        {
+          "name": "Export Excel",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/reports/export/excel?fechaInicio=&fechaFin=&especialidad=&medico=&search=&sortBy=horaLlegada&sortOrder=desc"
+            }
+          }
+        },
+        {
+          "name": "Export PDF",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/reports/export/pdf?fechaInicio=&fechaFin=&especialidad=&medico=&search=&sortBy=horaLlegada&sortOrder=desc"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000/api" },
+    { "key": "token", "value": "" },
+    { "key": "userId", "value": "" },
+    { "key": "patientId", "value": "" },
+    { "key": "doctorId", "value": "" },
+    { "key": "specialtyId", "value": "" },
+    { "key": "appointmentId", "value": "" },
+    { "key": "turnId", "value": "" }
+  ]
+}

@@ -1,0 +1,7 @@
+.auth-shell {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background:
+    radial-gradient(circle at top, rgb(var(--color-primary) / 0.12), transparent 35%),
+    linear-gradient(180deg, rgb(var(--color-background)), rgb(var(--color-background)));
+}
