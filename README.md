@@ -3,7 +3,7 @@
 Sistema web full stack para gestion de citas medicas, turnos, reportes y comunicacion en tiempo real.
 
 Componentes:
-- `medical-system-client`: React + Vite + Tailwind CSS
+- `medical-system-client`: React + Vite + CSS
 - `medical-system-server`: Node.js + Express + MongoDB + Socket.IO
 
 ## Requisitos
